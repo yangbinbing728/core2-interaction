@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Entry A — Word Drift</title>
+  <link rel="stylesheet" href="../style.css" />
+</head>
+
+<body class="cloud-body">
+  <header class="cloud-top">
+    <a class="cloud-back" href="../index.html">← Board</a>
+
+    <div class="cloud-head">
+      <p>Click a word to freeze it. Click again to release.</p>
+    </div>
+
+    <nav class="cloud-jump" aria-label="Nonlinear jumps">
+      <a href="story-b.html">Window</a>
+      <a href="story-c.html">Letter</a>
+      <a href="story-d.html">Key</a>
+    </nav>
+  </header>
+
+  <main class="cloud-stage" aria-label="Floating text cloud">
+    <!-- 你可以把下面这些换成你的词/短句/句子碎片 -->
+    <button class="w s1 a1 p1" type="button">hesitant</button>
+    <button class="w s2 a2 p2" type="button">doubtful</button>
+    <button class="w s3 a3 p3" type="button">upset</button>
+    <button class="w s1 a2 p4" type="button">pain</button>
+    <button class="w s2 a1 p5" type="button">despair</button>
+    <button class="w s3 a2 p6" type="button">frustrated</button>
+    <button class="w s2 a3 p7" type="button">confused</button>
+    <button class="w s1 a1 p8" type="button">afraid</button>
+    <button class="w s3 a3 p9" type="button">pessimistic</button>
+    <button class="w s2 a2 p10" type="button">tired</button>
+
+    <button class="w s1 a3 p11" type="button">unsure</button>
+    <button class="w s3 a1 p12" type="button">disappointed</button>
+    <button class="w s2 a2 p13" type="button">shaky</button>
+    <button class="w s1 a2 p14" type="button">lonely</button>
+    <button class="w s3 a3 p15" type="button">hurt</button>
+    <button class="w s2 a1 p16" type="button">bitter</button>
+  </main>
+
+  <script>
+    // 点击某个词：暂停/继续（只影响这个词）
+    document.querySelectorAll('.w').forEach(el => {
+      el.addEventListener('click', () => {
+        el.classList.toggle('paused');
+        el.setAttribute('aria-pressed', el.classList.contains('paused') ? 'true' : 'false');
+      });
+    });
+  </script>
+</body>
+</html>
