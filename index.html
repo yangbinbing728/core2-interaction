@@ -3,95 +3,351 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Binbing Yang Object Diary</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Object Diary — Home</title>
+
+  <style>
+    :root{
+      --bg:#ece9e2;
+
+    
+      --cover:#6b4a2f;
+      --cover2:#5a3e28;
+      --coverEdge:#3b2718;
+
+   
+      --paper:#fbfaf6;
+      --paperShadow: rgba(0,0,0,.18);
+
+    
+      --blue: rgba(40,90,200,.18);
+      --red: rgba(210,60,60,.22);
+
+      --ink:#121212;
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      background:
+        radial-gradient(900px 600px at 20% 20%, rgba(255,255,255,.55), transparent 60%),
+        radial-gradient(900px 700px at 80% 10%, rgba(0,0,0,.08), transparent 55%),
+        var(--bg);
+      color: var(--ink);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      display:grid;
+      place-items:center;
+      padding: 24px 14px;
+    }
+
+    
+    .stage{
+      width: min(520px, 92vw);
+      aspect-ratio: 3 / 4;  
+      position: relative;
+      perspective: 1400px;
+    }
+
+    
+    .cover{
+      position:absolute;
+      inset:0;
+      border-radius: 18px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.08), transparent 30%),
+        radial-gradient(900px 600px at 30% 20%, rgba(255,255,255,.10), transparent 55%),
+        linear-gradient(135deg, var(--cover), var(--cover2));
+      box-shadow:
+        0 28px 90px rgba(0,0,0,.35),
+        inset 0 0 0 1px rgba(255,255,255,.10);
+      transform-style: preserve-3d;
+      transform-origin: left center;
+      cursor: pointer;
+      overflow:hidden;
+    }
+
+    
+    .cover::before{
+      content:"";
+      position:absolute;
+      left:0; top:0; bottom:0;
+      width: 36px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.06), transparent 35%),
+        linear-gradient(90deg, rgba(0,0,0,.35), transparent 60%),
+        linear-gradient(135deg, #4d3422, #2f1f14);
+      box-shadow: inset -1px 0 0 rgba(255,255,255,.10);
+    }
+
+    
+    .cover::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        repeating-radial-gradient(circle at 20% 30%, rgba(0,0,0,.05) 0 1px, transparent 1px 6px),
+        repeating-radial-gradient(circle at 70% 60%, rgba(255,255,255,.05) 0 1px, transparent 1px 7px);
+      mix-blend-mode: overlay;
+      opacity: .55;
+      pointer-events:none;
+    }
+
+    .coverTitle{
+      position:absolute;
+      right: 20px;
+      top: 22px;
+      text-align:right;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      font-size: 12px;
+      color: rgba(255,255,255,.82);
+      text-shadow: 0 1px 0 rgba(0,0,0,.35);
+    }
+    .coverTitle b{
+      display:block;
+      letter-spacing:.18em;
+      font-size: 14px;
+      margin-top: 6px;
+    }
+
+    .hint{
+      position:absolute;
+      right: 18px;
+      bottom: 16px;
+      font-size: 12px;
+      color: rgba(255,255,255,.75);
+      opacity:.9;
+    }
+
+    
+    .book{
+      position:absolute;
+      inset: 10px;
+      border-radius: 14px;
+      transform-style: preserve-3d;
+      background: transparent;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .spread{
+      position:absolute;
+      inset:0;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .page{
+      position: relative;
+      border-radius: 14px;
+      overflow:hidden;
+      background: var(--paper);
+      box-shadow:
+        0 20px 70px rgba(0,0,0,.18),
+        inset 0 0 0 1px rgba(0,0,0,.08);
+    }
+
+    
+    .page.lined{
+      background:
+        linear-gradient(90deg, transparent 0 12%, var(--red) 12% 12.6%, transparent 12.6% 100%),      
+        repeating-linear-gradient(180deg, transparent 0 22px, var(--blue) 22px 23px),
+        var(--paper);
+    }
+
+   
+    .fold{
+      position:absolute;
+      left:50%;
+      top:0;
+      bottom:0;
+      width: 14px;
+      transform: translateX(-50%);
+      background: linear-gradient(90deg, rgba(0,0,0,.14), rgba(0,0,0,0), rgba(0,0,0,.10));
+      pointer-events:none;
+      opacity:.5;
+    }
+
+   
+    #draw{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      touch-action: none;
+      cursor: crosshair;
+    }
+
+   
+    .typeLayer{
+      position:absolute;
+      inset:0;
+      padding: 22px 22px 22px 18%;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 18px;
+      line-height: 1.9;
+      color: rgba(0,0,0,.85);
+      outline: none;
+      background: transparent;
+      white-space: pre-wrap;
+    }
+    .typeLayer:empty::before{
+      content:"(click here and start typing)";
+      color: rgba(0,0,0,.35);
+    }
+
+   
+    .nextHint{
+      position:absolute;
+      right: 18px;
+      bottom: 16px;
+      font-size: 12px;
+      opacity: .55;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      user-select:none;
+      pointer-events:none;
+    }
+
+   
+    .is-open .cover{
+      transform: rotateY(-145deg);
+      box-shadow:
+        0 18px 60px rgba(0,0,0,.28),
+        inset 0 0 0 1px rgba(255,255,255,.08);
+    }
+    .is-open .book{
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .cover{ transition:none !important; }
+      .book{ transition:none !important; }
+    }
+
+    .cover{
+      transition: transform 900ms cubic-bezier(.2,.8,.2,1);
+    }
+    .book{
+      transition: opacity 220ms ease;
+    }
+  </style>
 </head>
 
 <body>
-  <main class="window" role="application" aria-label="Diary archive window">
-
-    <div class="chrome">
-      <div class="dots" aria-hidden="true">
-        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-      </div>
-    </div>
-
-    <section class="content">
-      <header class="hero">
-        <p class="subtitle">Click an object to enter a story. </p>
-      </header>
-
-      <section class="board" aria-label="Corkboard of entry objects">
+  <div class="stage" id="stage" aria-label="Notebook home">
+   
+    <div class="book" aria-hidden="true">
+      <div class="spread">
+       
+        <section class="page lined" aria-label="Page 1: write and draw">
+          <canvas id="draw"></canvas>
+          <div id="type" class="typeLayer" contenteditable="true" spellcheck="false"></div>
+        </section>
 
       
-        <a class="paper card-left" href="THE  BOOK  OF  SAND.html" aria-label="Open story A: Notebook">
-          <div class="pin" aria-hidden="true"></div>
-          <div class="paper-inner">
-            <div class="paper-head">
-              <span class="label">LIBRARY CARD</span>
-              <span class="small">CAT. NO.</span>
-            </div>
-            <div class="rows">
-              <div class="row"><span>AUTHOR</span><span>George  Herbert</span></div>
-              <div class="row"><span>TITLE</span><span>THE BOOK OF SAND</span></div>
-              <div class="row"><span>DATE DUE</span><span>—</span></div>
-              <div class="row"><span>BORROWER</span><span>—</span></div>
-            </div>
-            <div class="paper-foot"></div>
-          </div>
+        <a class="page lined" id="nextPage" href="muban.html" aria-label="Go to next page">
+          <div class="nextHint">click to turn page →</div>
         </a>
+      </div>
+      <div class="fold" aria-hidden="true"></div>
+    </div>
 
-       
-        <a class="paper loose-center" href="The Garden of Forking Paths .html" aria-label="Open story B: Window">
-          <div class="pin" aria-hidden="true"></div>
-          <div class="paper-inner lined">
-            <div class="margin"></div>
-            <div class="holes" aria-hidden="true">
-              <span></span><span></span><span></span>
-            </div>
-            <div class="scribble">
-              <div class="line"></div><div class="line"></div><div class="line short"></div>
-            </div>
-            <div class="paper-foot">The Garden of Forking Paths</div>
-          </div>
-        </a>
+   
+    <div class="cover" id="cover" role="button" tabindex="0" aria-label="Open notebook">
+      <div class="coverTitle">
+        Diary
+        <b></b>
+      </div>
+      <div class="hint">click to open</div>
+    </div>
+  </div>
 
-          <a class="paper loose-center" href="The Garden of Forking Paths .html" aria-label="Open story B: Window">
-          <div class="pin" aria-hidden="true"></div>
-          <div class="paper-inner lined">
-            <div class="margin"></div>
-            <div class="holes" aria-hidden="true">
-              <span></span><span></span><span></span>
-            </div>
-            <div class="scribble">
-              <div class="line"></div><div class="line"></div><div class="line short"></div>
-            </div>
-            <div class="paper-foot">The Garden of Forking Paths</div>
-          </div>
-        </a>
+  <script>
+    
+    const stage = document.getElementById("stage");
+    const cover = document.getElementById("cover");
 
-       
-        <a class="paper card-right" href="The Circular Ruins.html" aria-label="Open story C: Letter">
-          <div class="pin" aria-hidden="true"></div>
-          <div class="paper-inner">
-            <div class="paper-head">
-              <span class="label">BORROWING SLIP</span>
-              <span class="small">ID</span>
-            </div>
-            <div class="rows">
-              <div class="row"><span>AUTHOR</span><span>Jorge Luis Borges</span></div>
-              <div class="row"><span>TITLE</span><span>The Circular Ruins</span></div>
-              <div class="row"><span>DATE</span><span>—</span></div>
-              <div class="row"><span>NOTE</span><span>sealed</span></div>
-            </div>
-            <div class="paper-foot"></div>
-          </div>
-        </a>
+    function openBook(){
+      stage.classList.add("is-open");
+      
+      setTimeout(() => document.getElementById("type").focus(), 350);
+    }
 
-        
-      </section>
-    </section>
+    cover.addEventListener("click", openBook);
+    cover.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        openBook();
+      }
+    });
 
-  </main>
+   
+    const canvas = document.getElementById("draw");
+    const ctx = canvas.getContext("2d");
+    const page = canvas.parentElement;
+
+    function resizeCanvas(){
+      const rect = page.getBoundingClientRect();
+      const dpr = Math.max(1, window.devicePixelRatio || 1);
+      canvas.width = Math.floor(rect.width * dpr);
+      canvas.height = Math.floor(rect.height * dpr);
+      canvas.style.width = rect.width + "px";
+      canvas.style.height = rect.height + "px";
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+   
+      ctx.lineWidth = 2;
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
+      ctx.strokeStyle = "rgba(20,20,20,.75)";
+    }
+
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    let drawing = false;
+    let lastX = 0, lastY = 0;
+
+    function getPos(e){
+      const rect = canvas.getBoundingClientRect();
+      const p = (e.touches && e.touches[0]) ? e.touches[0] : e;
+      return {
+        x: p.clientX - rect.left,
+        y: p.clientY - rect.top
+      };
+    }
+
+    function startDraw(e){
+      drawing = true;
+      const {x,y} = getPos(e);
+      lastX = x; lastY = y;
+    }
+
+    function moveDraw(e){
+      if(!drawing) return;
+      e.preventDefault();
+      const {x,y} = getPos(e);
+      ctx.beginPath();
+      ctx.moveTo(lastX, lastY);
+      ctx.lineTo(x, y);
+      ctx.stroke();
+      lastX = x; lastY = y;
+    }
+
+    function endDraw(){
+      drawing = false;
+    }
+
+    canvas.addEventListener("mousedown", startDraw);
+    canvas.addEventListener("mousemove", moveDraw);
+    window.addEventListener("mouseup", endDraw);
+
+    canvas.addEventListener("touchstart", startDraw, {passive:false});
+    canvas.addEventListener("touchmove", moveDraw, {passive:false});
+    canvas.addEventListener("touchend", endDraw);
+  </script>
 </body>
 </html>

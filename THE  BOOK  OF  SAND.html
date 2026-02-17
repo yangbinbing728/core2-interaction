@@ -9,173 +9,108 @@
     :root{
       --bg:#f2f2f2;
       --ink:#111;
-      --muted: rgba(0,0,0,.55);
-      --panel: rgba(255,255,255,.55);
-      --stroke: rgba(0,0,0,.10);
     }
 
     *{ box-sizing:border-box; }
 
     body{
       margin:0;
-      font-family: Georgia, "Times New Roman", serif;
-      line-height:1.7;
       background:var(--bg);
       color:var(--ink);
+      font-family: Georgia, "Times New Roman", serif;
+      line-height:1.7;
     }
 
-    .cloud-top{
+    /* Top bar: Back + Note/Letter/Label jumps */
+    .topbar{
       position: sticky;
       top: 0;
       z-index: 20;
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap:12px;
+      gap: 12px;
       padding: 14px 18px;
-      background: linear-gradient(to bottom, rgba(242,242,242,.95), rgba(242,242,242,.75), rgba(242,242,242,0));
+      background: linear-gradient(
+        to bottom,
+        rgba(242,242,242,.98),
+        rgba(242,242,242,.78),
+        rgba(242,242,242,0)
+      );
       backdrop-filter: blur(8px);
     }
 
-    .cloud-back,
-    .cloud-jump a{
-      color:inherit;
+    .back{
       text-decoration:none;
-      font-size:12px;
-      letter-spacing:.06em;
-      opacity:.75;
+      color: inherit;
+      font-size: 12px;
+      letter-spacing: .06em;
+      opacity: .75;
+      white-space: nowrap;
     }
-    .cloud-back:hover,
-    .cloud-jump a:hover{ opacity:1; }
+    .back:hover{ opacity: 1; }
 
-    .cloud-jump{
+    .jump{
       display:flex;
       gap:12px;
       flex-wrap:wrap;
       justify-content:flex-end;
     }
-
-    .layout{
-      width: min(1100px, calc(100vw - 40px));
-      margin: 18px auto 60px;
-      display:grid;
-      grid-template-columns: 260px 1fr;
-      gap: 22px;
-      align-items:start;
-    }
-
-    @media (max-width: 900px){
-      .layout{
-        grid-template-columns: 1fr;
-      }
-      .panel{
-        position: static !important;
-        max-height: none !important;
-      }
-    }
-
- 
-    .panel{
-      position: sticky;
-      top: 62px;
-      padding: 14px;
-      background: var(--panel);
-      border: 1px solid var(--stroke);
-      border-radius: 16px;
-      backdrop-filter: blur(10px);
-      max-height: calc(100vh - 90px);
-      overflow:auto;
-    }
-
-    .panel h3{
-      margin: 0 0 6px;
-      font-size: 13px;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      font-weight: normal;
-    }
-
-    .panel p{
-      margin: 0 0 12px;
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    .panel .actions{
-      display:flex;
-      gap:10px;
-      margin-bottom: 12px;
-      flex-wrap: wrap;
-    }
-
-    .btn{
-      appearance:none;
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,.55);
-      border-radius: 999px;
-      padding: 8px 10px;
-      font-size: 12px;
-      cursor:pointer;
-      color: inherit;
-    }
-    .btn:hover{ background: rgba(255,255,255,.75); }
-
-    .node{
-      display:block;
-      padding: 8px 10px;
-      margin-bottom: 8px;
-      border-radius: 12px;
-      border: 1px solid rgba(0,0,0,.06);
-      background: rgba(255,255,255,.35);
+    .jump a{
       text-decoration:none;
-      color:inherit;
+      color: inherit;
       font-size: 12px;
-      line-height: 1.4;
-      opacity: .9;
+      letter-spacing: .06em;
+      opacity: .70;
+      border-bottom: 1px solid rgba(0,0,0,.18);
+      padding-bottom: 2px;
+      white-space: nowrap;
     }
-    .node:hover{ background: rgba(255,255,255,.65); }
+    .jump a:hover{
+      opacity: 1;
+      border-bottom-color: rgba(0,0,0,.45);
+    }
 
+   
+    .page{
+      width: min(1100px, calc(100vw - 40px));
+      margin: 18px auto 70px;
+    }
 
-    .page header h1{
-      margin: 6px 0 4px;
+    h1{
+      margin: 10px 0 6px;
       font-size: 34px;
-      letter-spacing: .5px;
       font-weight: normal;
+      letter-spacing: .4px;
     }
-    .page header h2{
-      margin: 0 0 18px;
+    h2{
+      margin: 0 0 22px;
       font-size: 18px;
       font-weight: normal;
       opacity: .7;
     }
-
-    .frag{
+    .sand{
       margin: 0 0 14px;
-      font-size: 17px;
       white-space: pre-wrap;
+      font-size: 17px;
 
-      filter: blur(6px);
-      opacity: .25;
-      transition: filter 180ms ease, opacity 180ms ease;
-    }
-
-    .frag:hover,
-    .frag.is-revealed{
-      filter: blur(0);
-      opacity: 1;
-    }
-
-
-    .frag:target{
-      outline: 1px dashed rgba(0,0,0,.25);
-      outline-offset: 10px;
-      border-radius: 12px;
-    }
-
-    footer{
-      margin-top: 28px;
-      font-size: 12px;
       opacity: .55;
+      transform: translateY(0);
+      transition: opacity 900ms ease, transform 900ms ease;
+      cursor: pointer;
+    }
+
+    .sand.is-held{
+      opacity: 1;
+      transform: translateY(-2px);
+    }
+
+    @keyframes grit{
+      0%,100%{ letter-spacing: 0; }
+      50%{ letter-spacing: .02em; }
+    }
+    .sand.is-held{
+      animation: grit 1.2s ease-in-out infinite;
     }
 
     ::selection{ background: rgba(0,0,0,.12); }
@@ -183,120 +118,43 @@
 </head>
 
 <body>
-  <header class="cloud-top">
-    <a class="cloud-back" href="../index.html">← Back</a>
-    <nav class="cloud-jump" aria-label="Nonlinear jumps">
+  <header class="topbar">
+    <a class="back" href="../index.html">← Back</a>
+    <nav class="jump" aria-label="Page jumps">
       <a href="THE  BOOK  OF  SAND.html">Note</a>
       <a href="The Circular Ruins.html">Letter</a>
       <a href="The Garden of Forking Paths .html">Label</a>
     </nav>
   </header>
 
-  <div class="layout">
+  <main class="page">
+    <header>
+      <h1>THE BOOK OF SAND</h1>
+      <h2>George Herbert</h2>
+    </header>
 
-    <aside class="panel" aria-label="Path panel">
-      <h3>Forking Paths</h3>
-      <p>Click a node to jump. Hover paragraphs to reveal. Click a paragraph to “lock” it clear.</p>
-
-      <div class="actions">
-        <button class="btn" id="randomBtn" type="button">Random jump</button>
-        <button class="btn" id="reblurBtn" type="button">Reset blur</button>
-      </div>
-
-      <div id="nodes"></div>
-    </aside>
-
-
-    <main class="page">
-      <header>
-        <h1>THE  BOOK  OF  SAND</h1>
-        <h2>George  Herbert</h2>
-      </header>
-
-      <div id="sourceText" style="display:none; white-space:pre-wrap;">
-The  Book  of  Sand 
+    
+    <p class="sand">
 
 Thy  rope  of  sands  .   .    . 
 
-George  Herbert 
-
 The  line  is  made  up  of  an  infinite  number  of points;  the  plane  of  an  infinite  number  of  lines; the  volume  of  an  infinite  number  of  planes;  the hypervolume  of  an  infinite  number  of  volumes. .  .  .  No,  unquestionably  this  is  not — more  geometrico — the  best  way  of  beginning  my  story.  To claim  that  it  is  true  is  nowadays  the  convention  of every  made-up  story.  Mine,  however,  is  true. 
 
-I  live  alone  in  a  fourth-floor  apartment  on  Belgrano  Street,  in  Buenos  Aires.  Late  one  evening,  a few  months  back,  I  heard  a  knock  at  my  door.  I opened  it  and  a  stranger  stood  there.  He  was  a  tall man,  with  nondescript  features — or  perhaps  it  was my  myopia  that  made  them  seem  that  way. Dressed  in  gray  and  carrying  a  gray  suitcase  in  his hand,  he  had  an  unassuming  look  about  him.  I saw  at  once  that  he  was  a  foreigner.  At  first,  he struck  me  as  old;  only  later  did  I  realize  that  I  had been  misled  by  his  thin  blond  hair,  which  was,  in  a Scandinavian  sort  of  way,  almost  white.  During  the course  of  our  conversation,  which  was  not  to  last an  hour,  I  found  out  that  he  came  from  the  Orkneys. 
-      </div>
-
-      <section id="text"></section>
-
-     
-    </main>
-  </div>
+I  live  alone  in  a  fourth-floor  apartment  on  Belgrano  Street,  in  Buenos  Aires.  Late  one  evening,  a few  months  back,  I  heard  a  knock  at  my  door.  I opened  it  and  a  stranger  stood  there.  He  was  a  tall man,  with  nondescript  features — or  perhaps  it  was my  myopia  that  made  them  seem  that  way. Dressed  in  gray  and  carrying  a  gray  suitcase  in  his hand,  he  had  an  unassuming  look  about  him.  I saw  at  once  that  he  was  a  foreigner.  At  first,  he struck  me  as  old;  only  later  did  I  realize  that  I  had been  misled  by  his  thin  blond  hair,  which  was,  in  a Scandinavian  sort  of  way,  almost  white.  During  the course  of  our  conversation,  which  was  not  to  last an  hour,  I  found  out  that  he  came  from  the  Orkneys.</p>
+  </main>
 
   <script>
-    const source = document.getElementById("sourceText");
-    const text = document.getElementById("text");
-    const nodes = document.getElementById("nodes");
-    const randomBtn = document.getElementById("randomBtn");
-    const reblurBtn = document.getElementById("reblurBtn");
+    const HOLD_MS = 4200; 
 
-
-    const raw = (source.textContent || "").trim();
-    const parts = raw.split(/\n\s*\n+/).map(s => s.trim()).filter(Boolean);
-
-
-    const ids = [];
-
-    parts.forEach((para, i) => {
-      const id = "p" + (i + 1);
-      ids.push(id);
-
-
-      const p = document.createElement("p");
-      p.className = "frag";
-      p.id = id;
-      p.textContent = para;
-
-     
+    document.querySelectorAll(".sand").forEach(p => {
       p.addEventListener("click", () => {
-        p.classList.toggle("is-revealed");
+        p.classList.add("is-held");
+        clearTimeout(p._t);
+        p._t = setTimeout(() => {
+          p.classList.remove("is-held");
+        }, HOLD_MS);
       });
-
-      text.appendChild(p);
-
-     
-      const preview = para.replace(/\s+/g, " ").slice(0, 70) + (para.length > 70 ? "…" : "");
-      const a = document.createElement("a");
-      a.className = "node";
-      a.href = "#" + id;
-      a.textContent = (i + 1) + ". " + preview;
-      nodes.appendChild(a);
     });
-
-   
-    randomBtn.addEventListener("click", () => {
-      const pick = ids[Math.floor(Math.random() * ids.length)];
-      location.hash = pick;
-  
-      const el = document.getElementById(pick);
-      if (el) {
-        el.classList.add("is-revealed");
-        el.scrollIntoView({ behavior: "smooth", block: "center" });
-      }
-    });
-
-
-    reblurBtn.addEventListener("click", () => {
-      document.querySelectorAll(".frag.is-revealed").forEach(el => el.classList.remove("is-revealed"));
-    });
-
-
-    function revealTarget(){
-      const id = location.hash.replace("#", "");
-      if (!id) return;
-      const el = document.getElementById(id);
-      if (el) el.classList.add("is-revealed");
-    }
-    window.addEventListener("hashchange", revealTarget);
-    revealTarget();
   </script>
 </body>
 </html>

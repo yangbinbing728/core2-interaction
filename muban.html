@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Binbing Yang Object Diary</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <main class="window" role="application" aria-label="Diary archive window">
+
+    <div class="chrome">
+      <div class="dots" aria-hidden="true">
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+      </div>
+    </div>
+
+    <section class="content">
+      <header class="hero">
+        <p class="subtitle">Click an object to enter a story.</p>
+      </header>
+
+      <section class="board" aria-label="Corkboard of entry objects">
+
+        <!-- REAL STORY -->
+        <a class="paper card-left" href="THE  BOOK  OF  SAND.html">
+          <div class="pin"></div>
+          <div class="paper-inner">
+            <div class="paper-head">
+              <span class="label">LIBRARY CARD</span>
+              <span class="small">CAT. NO.</span>
+            </div>
+            <div class="rows">
+              <div class="row"><span>AUTHOR</span><span>George Herbert</span></div>
+              <div class="row"><span>TITLE</span><span>THE BOOK OF SAND</span></div>
+              <div class="row"><span>DATE DUE</span><span>—</span></div>
+              <div class="row"><span>BORROWER</span><span>—</span></div>
+            </div>
+          </div>
+        </a>
+
+        <!-- CENTER STORY -->
+        <a class="paper loose-center pos-top" href="The Garden of Forking Paths .html">
+          <div class="pin"></div>
+          <div class="paper-inner lined">
+            <div class="margin"></div>
+            <div class="holes"><span></span><span></span><span></span></div>
+            <div class="scribble">
+              <div class="line"></div>
+              <div class="line"></div>
+              <div class="line short"></div>
+            </div>
+            <div class="paper-foot">The Garden of Forking Paths</div>
+          </div>
+        </a>
+
+        <!-- RANDOM FAKE NOTES -->
+        <a class="paper loose-center pos-n1 fake" href="#"><div class="pin"></div><div class="paper-inner lined"><div class="margin"></div><div class="holes"><span></span><span></span><span></span></div><div class="scribble"><div class="line"></div><div class="line"></div><div class="line short"></div></div></div></a>
+
+        <a class="paper loose-center pos-n2 fake" href="#"><div class="pin"></div><div class="paper-inner lined"><div class="margin"></div><div class="holes"><span></span><span></span><span></span></div><div class="scribble"><div class="line"></div><div class="line"></div><div class="line short"></div></div></div></a>
+
+        <a class="paper loose-center pos-n3 fake" href="#"><div class="pin"></div><div class="paper-inner lined"><div class="margin"></div><div class="holes"><span></span><span></span><span></span></div><div class="scribble"><div class="line"></div><div class="line"></div><div class="line short"></div></div></div></a>
+
+        <a class="paper loose-center pos-n4 fake" href="#"><div class="pin"></div><div class="paper-inner lined"><div class="margin"></div><div class="holes"><span></span><span></span><span></span></div><div class="scribble"><div class="line"></div><div class="line"></div><div class="line short"></div></div></div></a>
+
+        <a class="paper loose-center pos-n5 fake" href="#"><div class="pin"></div><div class="paper-inner lined"><div class="margin"></div><div class="holes"><span></span><span></span><span></span></div><div class="scribble"><div class="line"></div><div class="line"></div><div class="line short"></div></div></div></a>
+
+        <a class="paper loose-center pos-n6 fake" href="#"><div class="pin"></div><div class="paper-inner lined"><div class="margin"></div><div class="holes"><span></span><span></span><span></span></div><div class="scribble"><div class="line"></div><div class="line"></div><div class="line short"></div></div></div></a>
+
+        <!-- BOTTOM RANDOM -->
+        <a class="paper loose-center pos-bottom fake" href="#">
+          <div class="pin"></div>
+          <div class="paper-inner lined">
+            <div class="margin"></div>
+            <div class="holes"><span></span><span></span><span></span></div>
+            <div class="scribble">
+              <div class="line"></div>
+              <div class="line"></div>
+              <div class="line short"></div>
+            </div>
+          </div>
+        </a>
+
+        <!-- RIGHT STORY -->
+        <a class="paper card-right" href="The Circular Ruins.html">
+          <div class="pin"></div>
+          <div class="paper-inner">
+            <div class="paper-head">
+              <span class="label">BORROWING SLIP</span>
+              <span class="small">ID</span>
+            </div>
+            <div class="rows">
+              <div class="row"><span>AUTHOR</span><span>Jorge Luis Borges</span></div>
+              <div class="row"><span>TITLE</span><span>The Circular Ruins</span></div>
+              <div class="row"><span>DATE</span><span>—</span></div>
+              <div class="row"><span>NOTE</span><span>sealed</span></div>
+            </div>
+          </div>
+        </a>
+
+      </section>
+    </section>
+  </main>
+
+  <!-- RANDOM REDIRECT SCRIPT -->
+  <script>
+    const randomTargets = [
+      "THE  BOOK  OF  SAND.html",
+      "The Garden of Forking Paths .html",
+      "The Circular Ruins.html"
+    ];
+
+    document.querySelectorAll("a.fake").forEach((a) => {
+      a.addEventListener("click", (e) => {
+        e.preventDefault();
+        const pick = randomTargets[Math.floor(Math.random() * randomTargets.length)];
+        window.location.href = pick;
+      });
+    });
+  </script>
+
+</body>
+</html>
