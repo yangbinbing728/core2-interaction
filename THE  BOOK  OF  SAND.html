@@ -5,121 +5,126 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>the book of sand</title>
 
+  <link rel="icon" type="image/png" sizes="32x32" href="img/logoo.png">
+
   <style>
-    :root{
-      --bg:#f2f2f2;
-      --ink:#111;
-    }
+:root{
+  --navy:#2f364d;       
+  --bluegray:#8b95a8;   
+  --lightgray:#e6e9ec;  
+  --red:#e5092f;       
+  --darkred:#d90429;
+}
 
-    *{ box-sizing:border-box; }
+*{ box-sizing:border-box; }
 
-    body{
-      margin:0;
-      background:var(--bg);
-      color:var(--ink);
-      font-family: Georgia, "Times New Roman", serif;
-      line-height:1.7;
-    }
+body{
+  margin:0;
+  background:var(--lightgray);
+  color:var(--navy);
+  font-family: Georgia, "Times New Roman", serif;
+  line-height:1.7;
+}
 
-    /* Top bar: Back + Note/Letter/Label jumps */
-    .topbar{
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 12px;
-      padding: 14px 18px;
-      background: linear-gradient(
-        to bottom,
-        rgba(242,242,242,.98),
-        rgba(242,242,242,.78),
-        rgba(242,242,242,0)
-      );
-      backdrop-filter: blur(8px);
-    }
+.topbar{
+  position: sticky;
+  top:0;
+  z-index:20;
+  background:var(--red);
+  padding:16px 24px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
 
-    .back{
-      text-decoration:none;
-      color: inherit;
-      font-size: 12px;
-      letter-spacing: .06em;
-      opacity: .75;
-      white-space: nowrap;
-    }
-    .back:hover{ opacity: 1; }
+.back{
+  color:white;
+  text-decoration:none;
+  font-size:14px;
+  letter-spacing:.05em;
+}
 
-    .jump{
-      display:flex;
-      gap:12px;
-      flex-wrap:wrap;
-      justify-content:flex-end;
-    }
-    .jump a{
-      text-decoration:none;
-      color: inherit;
-      font-size: 12px;
-      letter-spacing: .06em;
-      opacity: .70;
-      border-bottom: 1px solid rgba(0,0,0,.18);
-      padding-bottom: 2px;
-      white-space: nowrap;
-    }
-    .jump a:hover{
-      opacity: 1;
-      border-bottom-color: rgba(0,0,0,.45);
-    }
+.jump{
+  display:flex;
+  gap:20px;
+}
 
-   
-    .page{
-      width: min(1100px, calc(100vw - 40px));
-      margin: 18px auto 70px;
-    }
+.jump a{
+  color:white;
+  text-decoration:none;
+  font-size:14px;
+  letter-spacing:.05em;
+  opacity:.85;
+}
 
-    h1{
-      margin: 10px 0 6px;
-      font-size: 34px;
-      font-weight: normal;
-      letter-spacing: .4px;
-    }
-    h2{
-      margin: 0 0 22px;
-      font-size: 18px;
-      font-weight: normal;
-      opacity: .7;
-    }
+.jump a:hover{
+  opacity:1;
+}
+
+.page{
+  width:min(1100px, calc(100vw - 60px));
+  margin:50px auto 80px;
+}
+
+h1{
+  font-size:64px;
+  font-weight:600;
+  margin:0;
+  color:var(--navy);
+  letter-spacing:2px;
+}
+
+h2{
+  font-size:22px;
+  margin:14px 0 50px;
+  color:var(--red);
+  font-weight:400;
+}
+
+
+.sand{
+  background:var(--bluegray);
+  color:white;
+  padding:60px;
+  font-size:18px;
+  line-height:1.9;
+  margin-top:20px;
+}
+
     .sand{
-      margin: 0 0 14px;
+      margin: 0;
       white-space: pre-wrap;
       font-size: 17px;
 
-      opacity: .55;
+      opacity: .70;
       transform: translateY(0);
-      transition: opacity 900ms ease, transform 900ms ease;
+      transition: opacity 900ms ease, transform 900ms ease, color 900ms ease, text-shadow 900ms ease;
       cursor: pointer;
     }
 
     .sand.is-held{
       opacity: 1;
       transform: translateY(-2px);
+      color: var(--accent);
+      text-shadow: 0 0 6px rgba(225,6,44,.35);
+      animation: grit 1.2s ease-in-out infinite;
     }
 
     @keyframes grit{
       0%,100%{ letter-spacing: 0; }
       50%{ letter-spacing: .02em; }
     }
-    .sand.is-held{
-      animation: grit 1.2s ease-in-out infinite;
-    }
 
-    ::selection{ background: rgba(0,0,0,.12); }
-  </style>
+    ::selection{ background: rgba(225,6,44,.25); }
+
+
+</style>
+
 </head>
 
 <body>
   <header class="topbar">
-    <a class="back" href="../index.html">← Back</a>
+    <a class="back" href="../muban.html">← Back</a>
     <nav class="jump" aria-label="Page jumps">
       <a href="THE  BOOK  OF  SAND.html">Note</a>
       <a href="The Circular Ruins.html">Letter</a>
@@ -130,21 +135,19 @@
   <main class="page">
     <header>
       <h1>THE BOOK OF SAND</h1>
-      <h2>George Herbert</h2>
+      <h2>Thy  rope  of  sands  .   .    .     — George  Herbert 
+</h2>
     </header>
 
-    
-    <p class="sand">
-
-Thy  rope  of  sands  .   .    . 
-
+      <p class="sand">
 The  line  is  made  up  of  an  infinite  number  of points;  the  plane  of  an  infinite  number  of  lines; the  volume  of  an  infinite  number  of  planes;  the hypervolume  of  an  infinite  number  of  volumes. .  .  .  No,  unquestionably  this  is  not — more  geometrico — the  best  way  of  beginning  my  story.  To claim  that  it  is  true  is  nowadays  the  convention  of every  made-up  story.  Mine,  however,  is  true. 
 
-I  live  alone  in  a  fourth-floor  apartment  on  Belgrano  Street,  in  Buenos  Aires.  Late  one  evening,  a few  months  back,  I  heard  a  knock  at  my  door.  I opened  it  and  a  stranger  stood  there.  He  was  a  tall man,  with  nondescript  features — or  perhaps  it  was my  myopia  that  made  them  seem  that  way. Dressed  in  gray  and  carrying  a  gray  suitcase  in  his hand,  he  had  an  unassuming  look  about  him.  I saw  at  once  that  he  was  a  foreigner.  At  first,  he struck  me  as  old;  only  later  did  I  realize  that  I  had been  misled  by  his  thin  blond  hair,  which  was,  in  a Scandinavian  sort  of  way,  almost  white.  During  the course  of  our  conversation,  which  was  not  to  last an  hour,  I  found  out  that  he  came  from  the  Orkneys.</p>
+I  live  alone  in  a  fourth-floor  apartment  on  Belgrano  Street,  in  Buenos  Aires.  Late  one  evening,  a few  months  back,  I  heard  a  knock  at  my  door.  I opened  it  and  a  stranger  stood  there.  He  was  a  tall man,  with  nondescript  features — or  perhaps  it  was my  myopia  that  made  them  seem  that  way. Dressed  in  gray  and  carrying  a  gray  suitcase  in  his hand,  he  had  an  unassuming  look  about  him.  I saw  at  once  that  he  was  a  foreigner.  At  first,  he struck  me  as  old;  only  later  did  I  realize  that  I  had been  misled  by  his  thin  blond  hair,  which  was,  in  a Scandinavian  sort  of  way,  almost  white.  During  the course  of  our  conversation,  which  was  not  to  last an  hour,  I  found  out  that  he  came  from  the  Orkneys.
+      </p>
   </main>
 
   <script>
-    const HOLD_MS = 4200; 
+    const HOLD_MS = 4200;
 
     document.querySelectorAll(".sand").forEach(p => {
       p.addEventListener("click", () => {

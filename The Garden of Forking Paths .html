@@ -1,128 +1,159 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>The Garden of Forking Paths — To Victoria Ocampo</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="img/logoo.png">
 
   <style>
     :root{
-      --bg:#f2f2f2;
-      --ink:#111;
+      --red:#e10d2f;
+      --bg:#e9eaec;
+
+      --title:#2f3442;              
+      --panel:#a9b0bf;             
+      --panelText: rgba(255,255,255,.92);
     }
+
+    *{ box-sizing:border-box; }
 
     body{
-      margin: 0;
-      padding: 0;
-      font-family: Georgia, "Times New Roman", serif;
-      line-height: 1.7;
+      margin:0;
       background: var(--bg);
-      color: var(--ink);
+      font-family: Georgia, "Times New Roman", serif;
+      overflow-x: hidden;
     }
 
-   
-    .cloud-top{
+    .topbar{
       position: sticky;
       top: 0;
-      z-index: 10;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 14px 18px;
-      background: linear-gradient(to bottom, rgba(242,242,242,.95), rgba(242,242,242,.7), rgba(242,242,242,0));
-      backdrop-filter: blur(8px);
+      z-index: 20;
+      height: 64px;
+      background: var(--red);
+      display:flex;
+      align-items:center;
+      padding: 0 28px;
     }
 
-    .cloud-back,
-    .cloud-jump a{
-      color: inherit;
-      text-decoration: none;
-      font-size: 12px;
-      letter-spacing: .06em;
-      opacity: .75;
+    .topbar a{
+      color: rgba(255,255,255,.92);
+      text-decoration:none;
+      font-size: 18px;
+      letter-spacing: .02em;
+    }
+    .topbar a:hover{ opacity: .95; }
+
+    .topbar .left{
+      display:flex;
+      align-items:center;
+      gap:10px;
     }
 
-    .cloud-back:hover,
-    .cloud-jump a:hover{
-      opacity: 1;
+    .topbar .right{
+      margin-left:auto;
+      display:flex;
+      gap: 24px;
+      align-items:center;
+      font-size: 18px;
     }
 
-    .cloud-jump{
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
+    .arrow{
+      font-size: 22px;
+      transform: translateY(-1px);
+      display:inline-block;
     }
 
-  
-    .page{
-      margin: 50px auto 70px;
-      max-width: 700px;
-      padding: 0 20px;
+    .wrap{
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 56px 40px 80px;
+      position: relative;
+      z-index: 2;
     }
 
     h1{
-      margin: 0 0 4px 0;
-      font-size: 34px;
-      letter-spacing: 0.5px;
+      margin: 0;
+      font-size: clamp(54px, 7vw, 92px);
+      line-height: .95;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--title);
+      font-weight: 700;
     }
 
-    h2{
-      margin: 0 0 18px 0;
-      font-weight: normal;
-      font-size: 18px;
-      opacity: 0.7;
+    .sub{
+      margin-top: 18px;
+      color: var(--red);
+      font-size: 26px;
+      letter-spacing: .02em;
     }
 
-    .text{
+    .panel{
+      margin-top: 56px;
+      background: var(--panel);
+      padding: 56px 64px;
+      box-shadow: 0 10px 22px rgba(0,0,0,.08);
+
       white-space: pre-wrap;
-      font-size: 17px;
-
-      filter: blur(6px);
-      opacity: .25;
-      transition: filter 220ms ease, opacity 220ms ease;
-    }
-
-    .text:hover{
-      filter: blur(0px);
-      opacity: 1;
-    }
-
-
-    .text:focus{
+      color: var(--panelText);
+      font-size: 22px;
+      line-height: 1.95;
+      letter-spacing: .01em;
       outline: none;
-      filter: blur(0px);
-      opacity: 1;
+    }
+    .fog-layer{
+      position: fixed;
+      inset: 0;
+      z-index: 999;         
+      pointer-events: auto;  
+      display:block;
     }
 
-    footer{
-      margin-top: 40px;
+    .hint{
+      margin-top: 18px;
       font-size: 12px;
-      opacity: 0.55;
+      opacity: 0.7;
+      color: rgba(47,52,66,.85);
+    }
+
+    @media (max-width: 720px){
+      .topbar{ padding: 0 16px; height: 56px; }
+      .topbar a{ font-size: 16px; }
+      .topbar .right{ gap: 16px; }
+
+      .wrap{ padding: 34px 18px 60px; }
+      .sub{ font-size: 20px; }
+
+      .panel{
+        padding: 28px 22px;
+        font-size: 18px;
+        line-height: 1.85;
+      }
     }
   </style>
 </head>
 
-<body class="cloud-body">
-  <header class="cloud-top">
-    <a class="cloud-back" href="../index.html">← Back</a>
+<body>
+  <canvas id="fog" class="fog-layer" aria-hidden="true"></canvas>
 
-    <nav class="cloud-jump" aria-label="Nonlinear jumps">
+  <header class="topbar">
+    <div class="left">
+      <a href="../muban.html"><span class="arrow">←</span> Back</a>
+    </div>
+
+    <nav class="right" aria-label="Page links">
       <a href="THE  BOOK  OF  SAND.html">Note</a>
       <a href="The Circular Ruins.html">Letter</a>
       <a href="The Garden of Forking Paths .html">Label</a>
     </nav>
   </header>
 
-  <div class="page">
-    <header>
-      <h1>The Garden of Forking Paths</h1>
-      <h2>To Victoria Ocampo</h2>
-    </header>
+  <main class="wrap">
+    <h1>THE GARDEN OF FORKING PATHS</h1>
+    <div class="sub">To Victoria Ocampo</div>
 
-
-    <main class="text" tabindex="0">
+    <main class="panel" tabindex="0">
 In his A History of the World War (page 212), Captain Liddell Hart reports that a planned offensive by thirteen British divisions, supported by fourteen hundred artillery pieces, against the German line at Serre-Montauban, scheduled for July 24, 1916, had to be postponed until the morning of the 29th. He comments that torrential rain caused this delay - which lacked any special significance. The following deposition, dictated by, read over, and then signed by Dr. Yu Tsun, former teacher of English at the Tsingtao Hochschule, casts unsuspected light upon this event. The first two pages are missing. 
 . . . and I hung up the phone. Immediately I recollected the voice that had spoken in German. It was that of Captain Richard Madden. Madden, in Viktor Runeberg's office, meant the end of all our work and - though this seemed a secondary matter, or should have seemed so to me - of our lives also. His being there meant that Runeberg had been arrested or murdered. 1 Before the sun set on this same day, I ran the same risk. Madden was implacable. Rather, to be more accurate, he was obliged to be implacable. An Irishman in the service of England, a man suspected of equivocal feelings if not of actual treachery, how could he fail to welcome and seize upon this extraordinary piece of luck: the discovery, capture and perhaps the deaths of two agents of Imperial Germany? 
 I went up to my bedroom. Absurd though the gesture was, I closed and locked the door. I threw myself down on my narrow iron bed, and waited on my back. The never changing rooftops filled the window, and the hazy six o'clock sun hung in the sky. It seemed incredible that this day, a day without warnings or omens, might be that of my implacable death. In despite of my dead father, in despite of having been a child in one of the symmetrical gardens of Hai Feng, was I to die now? 
@@ -200,7 +231,92 @@ What remains is unreal and unimportant. Madden broke in and arrested me. I have 
 ' A malicious and outlandish statement. In point of fact, Captain Richard Madden had been attacked by the Prussian spy Hans Rabener, alias Viktor Runeberg, who drew an automatic pistol when Madden appeared with orders for the spy's arrest. Madden, in self defense, had inflicted wounds of which the spy later died. - Note by the manuscript editor. 
     </main>
 
-    <footer>Hover over the text to reveal it.</footer>
-  </div>
+  <script>
+    const fog = document.getElementById('fog');
+    const ctx = fog.getContext('2d');
+
+    let W, H;
+
+    function resizeFog(){
+      const dpr = Math.max(1, window.devicePixelRatio || 1);
+      W = window.innerWidth;
+      H = window.innerHeight;
+
+      fog.width = Math.floor(W * dpr);
+      fog.height = Math.floor(H * dpr);
+      fog.style.width = W + 'px';
+      fog.style.height = H + 'px';
+
+      ctx.setTransform(dpr,0,0,dpr,0,0);
+      paintFog();
+      fog.style.pointerEvents = 'auto'; 
+    }
+
+    function paintFog(){
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.clearRect(0,0,W,H);
+
+      
+      ctx.fillStyle = 'rgba(242,242,242,0.93)';
+      ctx.fillRect(0,0,W,H);
+
+      
+      for(let i=0;i<280;i++){
+        const x = Math.random()*W;
+        const y = Math.random()*H;
+        const r = 40 + Math.random()*140;
+        const g = ctx.createRadialGradient(x,y,0,x,y,r);
+        g.addColorStop(0, 'rgba(255,255,255,0.26)');
+        g.addColorStop(1, 'rgba(255,255,255,0)');
+        ctx.fillStyle = g;
+        ctx.beginPath();
+        ctx.arc(x,y,r,0,Math.PI*2);
+        ctx.fill();
+      }
+
+      
+      const vignette = ctx.createRadialGradient(W*0.5, H*0.35, 120, W*0.5, H*0.35, Math.max(W,H)*0.9);
+      vignette.addColorStop(0, 'rgba(242,242,242,0.06)');
+      vignette.addColorStop(1, 'rgba(242,242,242,0.55)');
+      ctx.fillStyle = vignette;
+      ctx.fillRect(0,0,W,H);
+
+     
+      ctx.globalCompositeOperation = 'destination-out';
+    }
+
+    function eraseAt(x,y){
+      const r = 46; 
+      const grad = ctx.createRadialGradient(x,y,0,x,y,r);
+      grad.addColorStop(0, 'rgba(0,0,0,0.58)');
+      grad.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = grad;
+
+      ctx.beginPath();
+      ctx.arc(x,y,r,0,Math.PI*2);
+      ctx.fill();
+    }
+
+    
+    fog.addEventListener('mousemove', (e)=>{
+      eraseAt(e.clientX, e.clientY);
+    });
+
+    
+    fog.addEventListener('dblclick', ()=>{
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.clearRect(0,0,W,H);
+      fog.style.pointerEvents = 'none';
+    });
+
+    window.addEventListener('keydown', (e)=>{
+      if(e.key.toLowerCase() === 'r'){
+        resizeFog();
+      }
+    });
+
+    window.addEventListener('resize', resizeFog);
+    resizeFog();
+  </script>
 </body>
 </html>

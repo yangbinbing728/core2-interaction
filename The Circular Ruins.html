@@ -4,25 +4,34 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>The Book of Sand — Jorge Luis Borges</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="img/logoo.png">
 
   <style>
     :root{
-      --bg: #f2f2f2;
-      --ink: #111;
-      --muted: rgba(0,0,0,.55);
+      --bg: #eaf1f7;
+      --ink: #1f2633;
+      --muted: rgba(31,38,51,.62);
+
+      --bar: #e3062c;          
+      --barText: rgba(255,255,255,.92);
+
+      --box: #6f86ad;         
+      --boxBg: rgba(111,134,173,.06);
+
+      --select: rgba(227,6,44,.18);
     }
 
-    * { box-sizing: border-box; }
+    *{ box-sizing: border-box; }
 
     body{
       margin: 0;
       font-family: Georgia, "Times New Roman", serif;
       background: var(--bg);
       color: var(--ink);
-      overflow: hidden; 
+      overflow: hidden;
     }
 
-    
+   
     .cloud-top{
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -30,41 +39,48 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
-      padding: 14px 16px;
-      background: linear-gradient(to bottom, rgba(242,242,242,.95), rgba(242,242,242,.55), rgba(242,242,242,0));
-      backdrop-filter: blur(6px);
+      padding: 14px 18px;
+      background: var(--bar);
     }
 
     .cloud-back{
       text-decoration: none;
       font-size: 14px;
-      opacity: .9;
-      padding: 6px 8px;
-      border-radius: 999px;
+      letter-spacing: .02em;
+      color: var(--barText);
+      white-space: nowrap;
     }
+    .cloud-back:hover{ color: #fff; text-decoration: underline; text-underline-offset: 4px; }
 
     .cloud-jump{
       display: flex;
-      gap: 10px;
+      gap: 16px;
       flex-wrap: wrap;
       justify-content: flex-end;
     }
 
     .cloud-jump a{
       text-decoration: none;
-      font-size: 12px;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      padding: 6px 8px;
-      border-radius: 999px;
-      color: inherit;
+      font-size: 14px;
+      letter-spacing: .02em;
+      text-transform: none;
+      color: var(--barText);
+      white-space: nowrap;
+    }
+    .cloud-jump a:hover{ color:#fff; text-decoration: underline; text-underline-offset: 4px; }
+
+    .hint{
+      position: fixed;
+      top: 66px;
+      right: 18px;
+      z-index: 16;
+      font-size: 14px;
+      color: var(--ink);
       opacity: .85;
+      background: transparent;
+      user-select: none;
     }
 
-    .cloud-jump a:hover{ opacity: 1; }
-
-    
     .title-float{
       position: fixed;
       left: 16px;
@@ -72,17 +88,17 @@
       z-index: 15;
       max-width: 44ch;
       padding: 10px 12px;
-      background: rgba(255,255,255,.35);
-      backdrop-filter: blur(10px);
+      background: rgba(255,255,255,.65);
+      border: 1px solid rgba(0,0,0,.08);
       border-radius: 14px;
+      backdrop-filter: blur(8px);
     }
-
     .title-float h1{
       margin: 0 0 4px 0;
       font-size: 16px;
       letter-spacing: .08em;
+      color: var(--ink);
     }
-
     .title-float p{
       margin: 0;
       font-size: 12px;
@@ -90,25 +106,10 @@
       line-height: 1.35;
     }
 
-    .hint{
-      position: fixed;
-      top: 64px;
-      right: 16px;
-      z-index: 16;
-      font-size: 11px;
-      color: var(--muted);
-      padding: 6px 8px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.35);
-      backdrop-filter: blur(10px);
-      user-select: none;
-    }
-
-  
     .elevator{
       position: fixed;
       inset: 0;
-      padding-top: 64px; 
+      padding-top: 64px;
     }
 
     .belt{
@@ -118,9 +119,10 @@
       will-change: transform;
     }
 
+    
     .segment{
       width: min(980px, calc(100vw - 44px));
-      margin: 70px auto;     
+      margin: 48px auto;       
       padding: 0;
       background: transparent;
       border: none;
@@ -129,37 +131,32 @@
     }
 
     
-    .segment:nth-child(4n+1){ transform: translateX(-40px); }
-    .segment:nth-child(4n+2){ transform: translateX(24px); }
-    .segment:nth-child(4n+3){ transform: translateX(-12px); }
-    .segment:nth-child(4n){   transform: translateX(36px); }
+   .segment{
+  width: auto;              
+  margin: 64px auto;
+}
 
- 
-    .segment p{
-      margin: 0;
-      font-size: 13px;
-      line-height: 1.9;
-      white-space: pre-wrap;
+.segment p{
+  display: inline-block;    
+  max-width: 720px;         
+  
+  padding: 28px 36px;
+  background: #9aa3b3;
+  color: rgba(255,255,255,.92);
 
-     
-      transition: transform 180ms ease, opacity 180ms ease;
-      transform-origin: left top;
-      opacity: 1;
-    }
+  font-size: 16px;
+  line-height: 2.05;
+  white-space: pre-wrap;
 
-    .segment p:hover{
-      transform: scale(1.22);
-    }
-
-   
-    ::selection{ background: rgba(0,0,0,.12); }
+  transition: transform 180ms ease, opacity 180ms ease;
+  transform-origin: left top;
+}
   </style>
 </head>
 
 <body class="cloud-body">
   <header class="cloud-top">
-    <a class="cloud-back" href="../index.html">← Back</a>
-
+    <a class="cloud-back" href="../muban.html">← Back</a>
     <nav class="cloud-jump" aria-label="Nonlinear jumps">
       <a href="THE  BOOK  OF  SAND.html">Note</a>
       <a href="The Circular Ruins.html">Letter</a>
@@ -176,22 +173,28 @@
 
   <main class="elevator" aria-label="Auto-scrolling text">
     <div class="belt" id="belt">
-      <section class="segment"><p>
+ <section class="segment"><p>
 No one saw him disembark in the unanimous night, 
 no one saw the bamboo canoe sink into the sacred mud, 
-but in a few days there was no one who did not know that the 
-taciturn man came from the South and that his home had been one 
-of those numberless villages upstream in the deeply cleft side of 
-the mountain, where the Zend language has not been contaminated 
-by Greek and where leprosy is infrequent. What is certain is that 
-the grey man kissed the mud,climbed up the bank with pushing aside
-(probably, without feeling) the blades which were lacerating his 
-flesh, and crawled,nauseated and bloodstained, up to the circular 
-enclosure crowned with a stone tiger or horse, which sometimes was 
-the color of flame and now was that of ashes. This circle was a 
-temple which had been devoured by ancient fires,  profaned by the 
-miasmal jungle, and whose god no longer received the homage of men. 
- The stranger stretched himself out beneath the pedestal. He was 
+but in a few days there was no one who did not know that 
+the taciturn man came from the South and that his home 
+had been one of those numberless villages upstream in 
+the deeply cleft side of the mountain, where the Zend 
+language has not been contaminated by Greek and where 
+leprosy is infrequent. 
+      </p></section>
+<section class="segment"><p>
+What is certain is that the grey man kissed the mud,climbed up the 
+bank with pushing aside(probably, without feeling) the blades which 
+were lacerating his flesh, and crawled,nauseated and bloodstained,
+up to the circular enclosure crowned with a stone tiger or horse, 
+which sometimes was the color of flame and now was that of ashes. 
+This circle was a temple which had been devoured by ancient fires,  
+profaned by the miasmal jungle, and whose god no longer received 
+the homage of men. 
+      </p></section>
+<section class="segment"><p>
+The stranger stretched himself out beneath the pedestal. He was 
  awakened by the sun high overhead.  He was not astonished to find 
  that his wounds had healed; he closed his pallid eyes and slept, 
  not through weakness of flesh but through determination of will. 
@@ -199,12 +202,14 @@ miasmal jungle, and whose god no longer received the homage of men.
  intent; he knew that the incessant trees had not succeeded in strangling 
  the ruins of another propitious temple downstream which had once belonged 
  to gods now burned and dead; he knew that his immediate obligation was to 
- dream. Toward midnight he was awakened by the inconsolable shriek of a 
- bird. Tracks of bare feet, some figs and a jug warned him that the 
- men of the region had been spying respectfully on his sleep, soliciting 
- his protection or afraid of his magic. He felt a chill of fear, and 
- sought out a sepulchral niche in the dilapidated wall where he concealed 
- himself among unfamiliar leaves.
+ dream. Toward midnight he was awakened by the inconsolable shriek of a bird. 
+      </p></section>
+<section class="segment"><p>
+Tracks of bare feet, some figs and a jug warned him that the 
+ men of the region had been spying respectfully on his sleep, 
+ soliciting his protection or afraid of his magic. He felt a 
+ chill of fear, and sought out a sepulchral niche in the dilapidated 
+ wall where he concealed himself among unfamiliar leaves.
       </p></section>
 
       <section class="segment"><p>
@@ -230,7 +235,23 @@ and magic: the faces listened anxiously and tried to answer understandingly, as 
 the importance of that examination which would redeem one of them from his condition of empty 
 illusion and interpolate him into the real world. Asleep or awake, the man thought over the 
 answers of his phantoms, did not allow himself to be deceived by imposters, and in certain 
-perplexities he sensed a growing intelligence. He was seeking a soul worthy of participating in the universe.
+perplexities he sensed a growing intelligence. He was seeking a soul worthy of participating 
+in the universe.
+      </p></section>
+      <section class="segment"><p>
+At first, his dreams were chaotic; then in a short while they became dialectic in nature. 
+The stranger dreamed that he was in the center of a circular amphitheater which was more 
+or less the burnt temple; clouds of taciturn students filled the tiers of seats; the 
+faces of the farthest ones hung at a distance of many centuries and as high as the stars,
+but their features were completely precise. 
+      </p></section>
+      <section class="segment"><p>
+The man lectured his pupils on anatomy, cosmography, and magic: the faces listened anxiously 
+and tried to answer understandingly, as if they guessed the importance of that examination 
+which would redeem one of them from his condition of empty illusion and interpolate him into 
+the real world. Asleep or awake, the man thought over the answers of his phantoms, did not 
+allow himself to be deceived by imposters, and in certain perplexities he sensed a growing 
+intelligence. He was seeking a soul worthy of participating in the universe.
       </p></section>
 
       <section class="segment"><p>
@@ -241,18 +262,22 @@ could not ascend to the level of individuals; the latter pre-existed to a slight
  One afternoon (now afternoons were also given over to sleep, now he was only awake for a couple 
  hours at daybreak) he dismissed the vast illusory student body for good and kept only one pupil. 
  He was a taciturn, sallow boy, at times intractable, and whose sharp features resembled of those 
- of his dreamer. The brusque elimination of his fellow students did not disconcert him for long; 
- after a few private lessons, his progress was enough to astound the teacher. 
- Nevertheless, a catastrophe took place. One day, the man emerged from his sleep as if 
- from a viscous desert, looked at the useless afternoon light which he immediately confused with the 
- dawn, and understood that he had not dreamed. All that night and all day long, the intolerable 
- lucidity of insomnia fell upon him. He tried exploring the forest, to lose his strength; among the 
- hemlock he barely succeeded in experiencing several short snatchs of sleep, veined with fleeting, 
- rudimentary visions that were useless. He tried to assemble the student body but scarcely had 
- he articulated a few brief words of exhortation when it became deformed and was then erased. 
- In his almost perpetual vigil, tears of anger burned his old eyes.
+ of his dreamer. 
       </p></section>
-
+<section class="segment"><p>
+The brusque elimination of his fellow students did not disconcert him for long; 
+ after a few private lessons, his progress was enough to astound the teacher. 
+ Nevertheless, a catastrophe took place. One day, the man emerged from his sleep 
+ as if from a viscous desert, looked at the useless afternoon light which he 
+ immediately confused with the dawn, and understood that he had not dreamed. 
+ All that night and all day long, the intolerable lucidity of insomnia fell 
+ upon him. He tried exploring the forest, to lose his strength; among the hemlock 
+ he barely succeeded in experiencing several short snatchs of sleep, veined with 
+ fleeting, rudimentary visions that were useless. He tried to assemble the student 
+ body but scarcely had he articulated a few brief words of exhortation when it 
+ became deformed and was then erased. In his almost perpetual vigil, tears of 
+ anger burned his old eyes.
+      </p></section>
       <section class="segment"><p>
 He understood that modeling the incoherent and vertiginous matter of which dreams are composed was the most 
 difficult task that a man could undertake, even though he should penetrate all the enigmas of a superior 
@@ -260,14 +285,17 @@ and inferior order; much more difficult than weaving a rope out of sand or coini
 He swore he would forget the enormous hallucination which had thrown him off at first, and he sought 
 another method of work. Before putting it into execution, he spent a month recovering his strength, 
 which had been squandered by his delirium. He abandoned all premeditation of dreaming and almost 
-immediately succeeded in sleeping a reasonable part of each day. The few times that he had dreams 
+immediately succeeded in sleeping a reasonable part of each day. 
+      </p></section>
+<section class="segment"><p>
+The few times that he had dreams 
 during this period, he paid no attention to them. Before resuming his task, he waited until the 
 moon's disk was perfect. Then, in the afternoon, he purified himself in the waters of the river, 
 worshiped the planetary gods, pronounced the prescribed syllables of a mighty name, and went to 
 sleep. He dreamed almost immediately, with his heart throbbing.”
       </p></section>
 
-      <section class="segment"><p>
+<section class="segment"><p>
 He dreamed that it was warm, secret, about the size of a 
 clenched fist, and of a garnet color within the penumbra 
 of a human body as yet without face or sex; during fourteen 
@@ -275,8 +303,10 @@ lucid nights he dreampt of it with meticulous love. Every
 night he perceived it more clearly. He did not touch it; 
 he only permitted himself to witness it, to observe it, 
 and occasionally to rectify it with a glance. He perceived 
-it and lived it from all angles and distances. On the 
-fourteenth night he lightly touched the pulmonary 
+it and lived it from all angles and distances. 
+      </p></section>
+      <section class="segment"><p>
+On the fourteenth night he lightly touched the pulmonary 
 artery with his index finger, then the whole heart, 
 outside and inside. He was satisfied with the examination. 
 He deliberately did not dream for a night; he took up the 
@@ -287,7 +317,6 @@ was perhaps the most difficult task. He dreamed an entire man--a
 young man, but who did not sit up or talk, who was unable to open 
 his eyes. Night after night, the man dreamt him asleep.
       </p></section>
-
       <section class="segment"><p>
 In the Gnostic cosmosgonies, demiurges fashion a red Adam who cannot stand; 
 as a clumsy, crude and elemental as this Adam of dust was the Adam of dreams 
@@ -295,36 +324,53 @@ forged by the wizard's nights. One afternoon, the man almost destroyed his
 entire work, but then changed his mind. (It would have been better had he 
 destroyed it.) When he had exhausted all supplications to the deities of 
 earth, he threw himself at the feet of the effigy which was perhaps a tiger 
-or perhaps a colt and implored its unknown help. That evening, at twilight, 
-he dreamt of the statue. He dreamt it was alive, tremulous: it was not an 
-atrocious bastard of a tiger and a colt, but at the same time these two firey 
-creatures and also a bull, a rose, and a storm. This multiple god revealed to 
-him that his earthly name was Fire, and that in this circular temple (and 
-in others like it) people had once made sacrifices to him and worshiped him, 
-and that he would magically animate the dreamed phantom, in such a way that 
-all creatures, except Fire itself and the dreamer, would believe to be a man 
-of flesh and blood. He commanded that once this man had been instructed in 
-all the rites, he should be sent to the other ruined temple whose pyramids 
-were still standing downstream, so that some voice would glorify him in that 
-deserted ediface. In the dream of the man that dreamed, the dreamed one awoke.
+or perhaps a colt and implored its unknown help.
       </p></section>
-
+ <section class="segment"><p>
+That evening, at twilight, he dreamt of the statue. He dreamt it was alive, 
+tremulous: it was not an atrocious bastard of a tiger and a colt, but at the 
+same time these two firey creatures and also a bull, a rose, and a storm. 
+This multiple god revealed to him that his earthly name was Fire, and that 
+in this circular temple (and in others like it) people had once made sacrifices 
+to him and worshiped him, and that he would magically animate the dreamed phantom, 
+in such a way that all creatures, except Fire itself and the dreamer, would believe 
+to be a man of flesh and blood.
+      </p></section>
+       <section class="segment"><p>
+He commanded that once this man had been instructed in all the rites, he 
+should be sent to the other ruined temple whose pyramids were still standing 
+downstream, so that some voice would glorify him in that deserted ediface. 
+In the dream of the man that dreamed, the dreamed one awoke.
+      </p></section>
       <section class="segment"><p>
 The wizard carried out the orders he had been given. He devoted a 
 certain length of time (which finally proved to be two years) to 
 instructing him in the mysteries of the universe and the cult of 
 fire. Secretly, he was pained at the idea of being seperated from 
 him. On the pretext of pedagogical necessity, each day he increased 
-the number of hours dedicated to dreaming. He also remade the right 
-shoulder, which was somewhat defective. At times, he was disturbed 
-by the impression that all this had already happened . . . In general, 
-his days were happy; when he closed his eyes, he thought: Now I will 
-be with my son. Or, more rarely: The son I have engendered is waiting 
+the number of hours dedicated to dreaming. 
+      </p></section>
+      <section class="segment"><p>
+He also remade the right shoulder, which was somewhat defective. At times, 
+he was disturbed by the impression that all this had already happened . . . 
+In general, his days were happy; when he closed his eyes, he thought: Now I 
+will be with my son. Or, more rarely: The son I have engendered is waiting 
 for me and will not exist if I do not go to him.
       </p></section>
       <section class="segment"><p>
 Gradually, he began accustoming him to reality. Once he ordered 
-him to place a flag on a faraway peak. The next day the flag was fluttering on the peak. He tried other analogous experiments, each time more audacious. With a certain bitterness, he understood that his son was ready to be born--and perhaps impatient. That night he kissed him for the first time and sent him off to the other temple whose remains were turning white downstream, across many miles of inextricable jungle and marshes. Before doing this (and so that his son should never know that he was a phantom, so that he should think himself a man like any other) he destroyed in him all memory of his years of apprenticeship.
+him to place a flag on a faraway peak. The next day the flag was 
+fluttering on the peak. He tried other analogous experiments, each 
+time more audacious. With a certain bitterness, he understood that 
+his son was ready to be born--and perhaps impatient. 
+</p></section>
+<section class="segment"><p>
+That night he kissed him for the first time and sent him off to the 
+other temple whose remains were turning white downstream, across many 
+miles of inextricable jungle and marshes. Before doing this (and so 
+that his son should never know that he was a phantom, so that he should 
+think himself a man like any other) he destroyed in him all memory of his 
+years of apprenticeship.
 </p></section>
  <section class="segment"><p>
 His victory and peace became blurred with boredom. 
@@ -337,15 +383,20 @@ His perceptions of the sounds and forms of the
 universe became somewhat pallid: his absent son was 
 being nourished by these diminution of his soul. 
 The purpose of his life had been fulfilled; the 
-man remained in a kind of ecstasy. After a certain 
-time, which some chronicles prefer to compute in 
-years and others in decades, two oarsmen awoke him 
-at midnight; he could not see their faces, but they 
-spoke to him of a charmed man in a temple of the North, 
-capable of walking on fire without burning himself. 
-The wizard suddenly remembered the words of the god. 
-He remembered that of all the creatures that people the earth, 
-Fire was the only one who knew his son to be a phantom. 
+man remained in a kind of ecstasy. 
+</p></section>
+<section class="segment"><p>
+After a certain time, which some chronicles prefer to 
+compute in years and others in decades, two oarsmen 
+awoke him at midnight; he could not see their faces, 
+but they spoke to him of a charmed man in a temple 
+of the North, capable of walking on fire without 
+burning himself. The wizard suddenly remembered the 
+words of the god. He remembered that of all the 
+creatures that people the earth, Fire was the only 
+one who knew his son to be a phantom. 
+</p></section>
+<section class="segment"><p>
 This memory, which at first calmed him, ended by tormenting him. 
 He feared lest his son should meditate on this abnormal privilege 
 and by some means find out he was a mere simulacrum. Not to be a 
@@ -363,32 +414,28 @@ appeared on a hill; then, toward the South, the sky took on the
 rose color of leopard's gums; then came clouds of smoke which 
 rusted the metal of the nights; afterwards came the panic-stricken 
 flight of wild animals. For what had happened many centuries before 
-was repeating itself. The ruins of the sanctuary of the god of Fire 
-was destroyed by fire. In a dawn without birds, the wizard saw the 
-concentric fire licking the walls. For a moment, he thought of taking 
-refuge in the water, but then he understood that death was coming to 
-crown his old age and absolve him from his labors. He walked toward 
-the sheets of flame. They did not bite his flesh, they caressed 
-him and flooded him without heat or combustion. With relief, with 
-humiliation, with terror, he understood that he also was an illusion, 
-that someone else was dreaming him.
+was repeating itself. 
+</p></section>
+ <section class="segment"><p>
+ The ruins of the sanctuary of the god of Fire was destroyed by fire. 
+ In a dawn without birds, the wizard saw the concentric fire licking 
+ the walls. For a moment, he thought of taking refuge in the water, 
+ but then he understood that death was coming to crown his old age and 
+ absolve him from his labors. He walked toward the sheets of flame. 
+ They did not bite his flesh, they caressed him and flooded him without 
+ heat or combustion. With relief, with humiliation, with terror, he 
+ understood that he also was an illusion, that someone else was dreaming him.
 </p></section>
     </div>
   </main>
 
   <script>
     const belt = document.getElementById("belt");
-
     const SPEED = 0.6;
-
-
     let paused = false;
-
-
     let y = 0;
     let last = performance.now();
 
- 
     function duplicateOnce(){
       const clone = belt.cloneNode(true);
       clone.id = "beltClone";
@@ -401,15 +448,13 @@ that someone else was dreaming him.
       return belt.getBoundingClientRect().height;
     }
 
-    let beltHeight = 0;
-
     function tick(now){
       const dt = now - last;
       last = now;
 
       if (!paused) y -= SPEED * (dt / 16.67);
 
-      beltHeight = measure();
+      const beltHeight = measure();
 
       belt.style.transform = `translateY(${y}px)`;
       beltClone.style.transform = `translateY(${y + beltHeight}px)`;
@@ -434,9 +479,7 @@ that someone else was dreaming him.
 
     window.addEventListener("resize", () => { y = 0; });
 
-  
     const allParagraphs = () => Array.from(document.querySelectorAll(".segment p"));
-
     let focusedEl = null;
     let fadeRAF = null;
 
@@ -449,19 +492,16 @@ that someone else was dreaming him.
       const focusRect = focusedEl.getBoundingClientRect();
       const focusCenterY = focusRect.top + focusRect.height / 2;
 
-   
-      const RANGE = 520;   
-      const MIN_OP = 0.12; // 
+      const RANGE = 520;
+      const MIN_OP = 0.12;
 
       for (const p of ps){
         const r = p.getBoundingClientRect();
         const cy = r.top + r.height / 2;
         const d = Math.abs(cy - focusCenterY);
 
-
         const t = 1 - (d / RANGE);
         const op = clamp(t, MIN_OP, 1);
-
 
         p.style.opacity = (p === focusedEl) ? "1" : String(op);
       }
@@ -478,7 +518,6 @@ that someone else was dreaming him.
       }
     }
 
-  
     document.addEventListener("mouseenter", (e) => {
       const p = e.target.closest(".segment p");
       if (!p) return;
@@ -489,7 +528,6 @@ that someone else was dreaming him.
     document.addEventListener("mouseleave", (e) => {
       const p = e.target.closest(".segment p");
       if (!p) return;
-
       clearFade();
     }, true);
   </script>

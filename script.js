@@ -9,14 +9,13 @@ const eraserBtn = document.getElementById("eraserBtn");
 const clearBtn = document.getElementById("clearBtn");
 
 let drawing = false;
-let mode = "pen"; // "pen" | "eraser"
+let mode = "pen"; 
 
-// open/close
+
 coverBtn.addEventListener("click", () => {
   book.classList.toggle("is-open");
 });
 
-// canvas helpers: map pointer coords to canvas coords
 function getPos(e){
   const rect = canvas.getBoundingClientRect();
   const x = (e.clientX - rect.left) * (canvas.width / rect.width);
@@ -55,7 +54,7 @@ function end(){
   ctx.closePath();
 }
 
-// pointer events
+
 canvas.addEventListener("pointerdown", (e) => {
   canvas.setPointerCapture(e.pointerId);
   start(e);
@@ -64,14 +63,13 @@ canvas.addEventListener("pointermove", move);
 canvas.addEventListener("pointerup", end);
 canvas.addEventListener("pointercancel", end);
 
-// tools
+
 penBtn.addEventListener("click", () => mode = "pen");
 eraserBtn.addEventListener("click", () => mode = "eraser");
 clearBtn.addEventListener("click", () => {
   ctx.clearRect(0,0,canvas.width,canvas.height);
 });
 
-// make drawing crisp on resize (optional simple approach)
 function fitCanvasToDevicePixelRatio(){
   const ratio = Math.max(1, Math.floor(window.devicePixelRatio || 1));
   const cssW = canvas.clientWidth;
@@ -81,7 +79,6 @@ function fitCanvasToDevicePixelRatio(){
   ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
 }
 window.addEventListener("resize", () => {
-  // NOTE: this clears the canvas on resize. If you want to preserve, tell me and I’ll add snapshot restore.
   fitCanvasToDevicePixelRatio();
 });
 fitCanvasToDevicePixelRatio();

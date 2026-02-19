@@ -27,7 +27,7 @@ body{
   padding: 28px 14px;
 }
 
-/* window */
+
 .window{
   width: min(980px, 100%);
   border-radius: 18px;
@@ -39,7 +39,7 @@ body{
 
 
 
-/* content */
+
 .content{
   padding: 18px 18px 16px;
   background: #efefef;
@@ -99,7 +99,7 @@ body{
   outline-offset: 6px;
 }
 
-/* pinned parts */
+
 .pin{
   position:absolute;
   width: 14px;
@@ -119,7 +119,7 @@ body{
   top: 3px; left: 3px;
 }
 
-/* inner paper styles */
+
 .paper-inner{
   background: var(--paper);
   border: 1px solid rgba(0,0,0,.12);
@@ -157,7 +157,7 @@ body{
   text-transform: uppercase;
 }
 
-/* lined notebook page */
+
 .lined{
   background:
     linear-gradient(90deg, rgba(209,73,73,.28) 0 2px, transparent 2px 100%),
@@ -197,7 +197,6 @@ body{
 }
 .line.short{width: 58%;}
 
-/* positions */
 .card-left{
   width: 220px;
   left: 80px; top: 70px;
@@ -215,7 +214,6 @@ body{
   transform: rotate(4deg);
 }
 
-/* small clipped note */
 .clip-note{
   width: 190px;
   left: 150px;
@@ -246,7 +244,7 @@ body{
   line-height: 1.35;
 }
 
-/* hint */
+
 .hint{
   position:absolute;
   right: 16px;
@@ -259,7 +257,6 @@ body{
   opacity: .75;
 }
 
-/* footer */
 .footer{
   padding-top: 10px;
   font-size: 12px;
@@ -278,7 +275,7 @@ body{
   .loose-center{ top: 220px; }
   .clip-note{ left: 22px; bottom: 36px; }
 }
-/* ===== Nonlinear modal system (CSS-only) ===== */
+
 .modal{
   position: fixed;
   inset: 0;
@@ -356,9 +353,7 @@ body{
 .assoc a:hover{
   background: rgba(0,0,0,.07);
 }
-/* =========================
-   Story pages: auto-scrolling text (hover pause)
-   ========================= */
+
 
 .story-body{
   margin: 0;
@@ -510,10 +505,6 @@ body{
   .jump{ justify-content: flex-start; }
   .text p{ font-size: 15px; }
 }
-/* =========================
-   Drift page: full-screen floating paragraphs
-   Click to freeze one paragraph
-   ========================= */
 
 .drift-body{
   margin:0;
@@ -552,7 +543,6 @@ body{
   opacity: .7;
 }
 
-/* reuse your existing .jump if you have it; otherwise this works */
 .jump{
   grid-area: jump;
   align-self:center;
@@ -585,7 +575,6 @@ body{
   box-shadow: 0 18px 60px rgba(0,0,0,.18);
 }
 
-/* Each paragraph block */
 .frag{
   position:absolute;
   max-width: min(520px, 72vw);
@@ -613,19 +602,18 @@ body{
   background: rgba(255,255,255,.92);
 }
 
-/* Different “paths” (vertical drift styles) */
 .v1{ animation: driftUp 18s linear infinite; }
 .v2{ animation: driftDown 22s linear infinite; }
 .v3{ animation: driftUp 26s linear infinite; }
 .v4{ animation: driftDown 30s linear infinite; }
 .v5{ animation: driftUp 34s linear infinite; }
 
-/* Speed modifiers */
+
 .s1{ animation-duration: 18s; }
 .s2{ animation-duration: 26s; }
 .s3{ animation-duration: 34s; }
 
-/* Positions (scatter across the screen) */
+
 .p1{ left: 6%;  top: 72%; }
 .p2{ left: 58%; top: 62%; }
 .p3{ left: 18%; top: 28%; }
@@ -637,7 +625,7 @@ body{
 .p9{ left: 70%; top: 78%; }
 .p10{ left: 40%; top: 14%; }
 
-/* Animations: move a bit, wrap around */
+
 @keyframes driftUp{
   0%   { transform: translateY(120px); }
   100% { transform: translateY(-520px); }
@@ -658,10 +646,6 @@ body{
   .jump{ justify-content:flex-start; }
   .frag{ font-size: 15px; }
 }
-/* =========================
-   Pure text cloud drift (no boxes, no borders)
-   Click to freeze one word
-   ========================= */
 
 .cloud-body{
   margin:0;
@@ -729,7 +713,7 @@ body{
   overflow: hidden;
 }
 
-/* word (pure text) */
+
 .w{
   position: absolute;
   background: transparent;
@@ -744,12 +728,12 @@ body{
   user-select: none;
 }
 
-/* sizes */
+
 .s1{ font-size: 18px; font-weight: 600; }
 .s2{ font-size: 28px; font-weight: 750; }
 .s3{ font-size: 44px; font-weight: 850; }
 
-/* animations: gentle up-down (like breathing) */
+
 .a1{ animation: bob 3.6s ease-in-out infinite; }
 .a2{ animation: bob 5.2s ease-in-out infinite; }
 .a3{ animation: bob 7.0s ease-in-out infinite; }
@@ -759,14 +743,13 @@ body{
   50%     { transform: translateY(-22px); }
 }
 
-/* click freeze */
+
 .w.paused{
   animation-play-state: paused !important;
   opacity: 1;
   color: rgba(0,0,0,.95);
 }
 
-/* scatter positions (你可以继续加更多 pXX) */
 .p1{ left: 8%;  top: 32%; }
 .p2{ left: 30%; top: 50%; }
 .p3{ left: 10%; top: 60%; }
@@ -811,20 +794,18 @@ body{
   padding: 22px;              
   border-width: 12px;        
 }
-/* override position for the two center papers */
+
 
 .pos-top{
-  top: 90px;                 /* 上一点 */
+  top: 90px;                 
   transform: translateX(-50%) rotate(-3deg);
 }
 
 .pos-bottom{
-  top: 360px;                /* 下移很多 */
+  top: 360px;               
   transform: translateX(-50%) rotate(4deg);
 }
-/* ===== OVERRIDES (KEEP THESE AT THE VERY END) ===== */
 
-/* make window/board wider like a backdrop */
 body{
   padding: 18px 18px; 
 }
@@ -844,7 +825,7 @@ body{
   border-width: 12px;
 }
 
-/* IMPORTANT: override BOTH left + top (otherwise loose-center wins) */
+
 .pos-top{
   left: 52%;
   top: 90px;
@@ -857,7 +838,6 @@ body{
   transform: translateX(-50%) rotate(4deg);
 }
 
-/* scattered extra notes (override loose-center) */
 .pos-n1{ left: 60%; top: 200px; transform: translateX(-50%) rotate(-7deg); }
 .pos-n2{ left: 82%; top: 270px; transform: translateX(-50%) rotate(6deg);  }
 .pos-n3{ left: 14%; top: 360px; transform: translateX(-50%) rotate(4deg);  }
@@ -910,7 +890,7 @@ body{
   user-select:none;
 }
 
-/* book wrapper */
+
 .book{
   width: min(980px, 94vw);
   height: min(620px, 78vh);
@@ -918,7 +898,6 @@ body{
   perspective: 1400px;
 }
 
-/* cover is a button so it's clickable */
 .cover{
   all: unset;
   position:absolute;
@@ -970,7 +949,6 @@ body{
   opacity: .7;
 }
 
-/* inside pages */
 .inside{
   position:absolute;
   inset: 0;
@@ -983,7 +961,6 @@ body{
   grid-template-columns: 1fr 1fr;
 }
 
-/* paper pages */
 .page{
   background: linear-gradient(180deg, var(--paper), var(--paper2));
   position: relative;
@@ -995,7 +972,7 @@ body{
 }
 
 .page::before{
-  /* subtle paper grain */
+
   content:"";
   position:absolute;
   inset:0;
@@ -1359,9 +1336,6 @@ body{
   .page-left{ border-right: none; border-bottom: 1px solid rgba(0,0,0,.10); }
   .cover{ padding: 18px; }
 }
-body{
-  cursor: url("shubiao.svg") 16 16, auto;
-}
-a {
-  cursor: url("shubiao.svg") 4 4, pointer;
+html, body, b{
+  cursor: url("../img/image.png") 16 16, auto !important;
 }
